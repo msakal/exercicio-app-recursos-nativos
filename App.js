@@ -64,29 +64,18 @@ export default function App() {
     setFoto(imagem.assets[0].uri);
   };
 
+  /* Recupera Hora e Data Atual (aplica formatação) */
+  let dataHora = new Date();
+  let mes = dataHora.getMonth().toString() + 1;
+  let mesF = mes.length == 1 ? "0" + mes : mes;
+  let horaAtual = `${dataHora.getHours()}:${dataHora.getMinutes()} - ${dataHora.getDate()}/${mesF}/${dataHora.getFullYear()}`;
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
         <StatusBar animated={true} backgroundColor="black" />
-        <Text style={styles.texto}>App 1 - Fotos de lugares visitados</Text>
-        <View style={styles.caixa}>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeText}
-            value={texto}
-          />
-          <View style={styles.view}>
-            {foto && (
-              <Image
-                source={{ uri: foto }}
-                style={{ width: 350, height: 200 }}
-              />
-            )}
-          </View>
-          <Pressable style={styles.botao} onPress={acessaCamera}>
-            <Text style={styles.textoBotao}>Tirar foto</Text>
-          </Pressable>
-        </View>
+        <Text style={styles.texto}>App 2 - Marcação de Pontos</Text>
+
         <View style={styles.caixa}>
           <View style={styles.view}>
             <MapView
@@ -99,8 +88,10 @@ export default function App() {
               )}
             </MapView>
           </View>
+          <Text style={styles.dataHora}>{horaAtual}</Text>
+
           <Pressable style={styles.botao} onPress={novaLocalizacao}>
-            <Text style={styles.textoBotao}>localizar no mapa</Text>
+            <Text style={styles.textoBotao}>Marcar</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -115,7 +106,15 @@ const styles = StyleSheet.create({
   },
   texto: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 22,
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  dataHora: {
+    textAlign: "center",
+    fontSize: 26,
+    paddingTop: 30,
+    paddingBottom: 30,
   },
   caixa: {
     width: 400,
@@ -134,6 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 2,
   },
   map: {
     width: "100%",
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 4,
     backgroundColor: "gray",
+    borderWidth: 2,
   },
   textoBotao: {
     fontSize: 20,
