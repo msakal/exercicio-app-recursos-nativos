@@ -104,29 +104,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   texto: {
     textAlign: "center",
     fontSize: 22,
     marginTop: 20,
     marginBottom: 40,
   },
+
   dataHora: {
     textAlign: "center",
     fontSize: 26,
     paddingTop: 30,
     paddingBottom: 30,
+    color: "blue",
   },
+
   caixa: {
     width: 400,
     alignItems: "center",
   },
-  input: {
-    height: 60,
-    width: 350,
-    margin: 30,
-    borderWidth: 1,
-    padding: 10,
-  },
+
   view: {
     height: 200,
     width: 350,
@@ -134,21 +132,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 2,
+    borderRadius: 4,
   },
+
   map: {
     width: "100%",
     height: "100%",
   },
+
   botao: {
     height: 40,
     width: 350,
     marginVertical: 20,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 4,
     backgroundColor: "gray",
     borderWidth: 2,
+    borderRadius: 4,
   },
+
   textoBotao: {
     fontSize: 20,
   },
