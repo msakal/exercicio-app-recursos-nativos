@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Alert,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -44,7 +45,25 @@ export default function App() {
       latitudeDelta: 0.0052,
       longitudeDelta: 0.0012,
     });
+    marcacaoConfirmada();
+    // Alert.alert("Alert Title", "My Alert Msg", [
+    //   { text: "OK", onPress: () => console.log("OK Pressed") },
+    // ]);
+    console.log(localizacao);
   };
+
+  const marcacaoConfirmada = () => {
+    Alert.alert("Marcação registrada com sucesso!", "corpo...", [
+      {
+        text: "OK",
+        onPress: () => {
+          return false;
+        },
+        style: "cancel", //somente ios
+      },
+    ]);
+  };
+
   useEffect(() => {
     async function verPermissoes() {
       const cameraStatus = await ImagePicker.requestCameraPermissionsAsync();
@@ -66,9 +85,20 @@ export default function App() {
 
   /* Recupera Hora e Data Atual (aplica formatação) */
   let dataHora = new Date();
+  /* hora */
+  let hora = dataHora.getHours().toString();
+  let horaF = hora.length == 1 ? "0" + hora : hora;
+  /* minuto */
+  let minuto = dataHora.getMinutes().toString();
+  let minutoF = minuto.length == 1 ? "0" + minuto : minuto;
+  /* dia */
+  let dia = dataHora.getDate().toString();
+  let diaF = dia.length == 1 ? "0" + dia : dia;
+  /* mes */
   let mes = dataHora.getMonth().toString() + 1;
   let mesF = mes.length == 1 ? "0" + mes : mes;
-  let horaAtual = `${dataHora.getHours()}:${dataHora.getMinutes()} - ${dataHora.getDate()}/${mesF}/${dataHora.getFullYear()}`;
+  /* concatena as variáveis */
+  let horaAtual = `${horaF}:${minutoF} - ${diaF}/${mesF}/${dataHora.getFullYear()}`;
 
   return (
     <View style={styles.container}>
