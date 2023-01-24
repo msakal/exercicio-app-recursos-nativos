@@ -45,15 +45,32 @@ export default function App() {
       latitudeDelta: 0.0052,
       longitudeDelta: 0.0012,
     });
-    marcacaoConfirmada();
-    // Alert.alert("Alert Title", "My Alert Msg", [
-    //   { text: "OK", onPress: () => console.log("OK Pressed") },
-    // ]);
-    console.log(localizacao);
+
+    fetch(
+      `https://nominatim.openstreetmap.org/reverse.php?lat=${minhaLocalizacao.coords.latitude}&lon=${minhaLocalizacao.coords.longitude}&zoom=18&format=jsonv2`
+    )
+      .then((resposta) => resposta.json())
+      .then((dados) => {
+        /* console.log(`${dados.address.road}, ${dados.address.house_number}`); */
+        //marcacaoConfirmada();
+        Alert.alert(
+          "Sucesso",
+          `Endereço: ${dados.address.road}, ${dados.address.house_number} - ${dados.address.city}`,
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                return false;
+              },
+              style: "cancel", //somente ios
+            },
+          ]
+        );
+      });
   };
 
   const marcacaoConfirmada = () => {
-    Alert.alert("Marcação registrada com sucesso!", "corpo...", [
+    Alert.alert("Marcação registrada com sucesso!", `No endereço  `, [
       {
         text: "OK",
         onPress: () => {
@@ -62,25 +79,6 @@ export default function App() {
         style: "cancel", //somente ios
       },
     ]);
-  };
-
-  useEffect(() => {
-    async function verPermissoes() {
-      const cameraStatus = await ImagePicker.requestCameraPermissionsAsync();
-      requestPermission(cameraStatus === "granted");
-    }
-
-    verPermissoes();
-  }, []);
-  const acessaCamera = async () => {
-    const imagem = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.5,
-    });
-
-    console.log(imagem);
-    setFoto(imagem.assets[0].uri);
   };
 
   /* Recupera Hora e Data Atual (aplica formatação) */
